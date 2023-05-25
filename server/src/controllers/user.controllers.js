@@ -4,15 +4,15 @@ const argon2 = require("argon2")
 
 
 const SIGNUP = async (req, res) => {
-    const { username, email, password, role } = req.body;
-    if (role === "admin") {
-        console.log("create admin req found")
-        return res.status(403).send({ error: 'this action cannot be performed' });
-    }
-    if (role === 'oem' && req.user.role !== 'admin') {
-        return res.status(403).send({ error: 'Only admin can create OEM users' });
-    }
     try {
+        const { username, email, password, role } = req.body;
+        if (role === "admin") {
+            console.log("create admin req found")
+            return res.status(403).send({ error: 'this action cannot be performed' });
+        }
+        if (role === 'oem' && req.user.role !== 'admin') {
+            return res.status(403).send({ error: 'Only admin can create OEM users' });
+        }
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).send({ error: 'User already exists' });
