@@ -13,16 +13,17 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { authLogin } from "../redux/actions/auth.actions";
+import { LogIn } from "../redux/actions/auth.actions";
 let init = {
   email: "",
   password: "",
 };
 export default function Login() {
+  const auth = useSelector((s) => s.auth);
   const loading = useSelector((s) => s.auth.isLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [data, setdata] = useState(init);
@@ -35,8 +36,30 @@ export default function Login() {
     setdata({ ...data, [e.target.name]: e.target.value });
   }
   async function HandleLogin() {
-    // dispatch(authLogin({ ...data, toast, history, from }));
+    dispatch(LogIn({ ...data }));
   }
+  useEffect(() => {
+    if (auth.isAuth) {
+      toast({
+        title: `Welcome to BUYC`,
+        description: "Registration successfull",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+      history(from);
+    }
+    if (auth.isError) {
+      toast({
+        title: `somthing went wrong`,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  }, [auth.isAuth, auth.isError]);
   return (
     <Flex
       minH={"100vh"}
