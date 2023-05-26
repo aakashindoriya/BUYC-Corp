@@ -4,8 +4,12 @@ import axios from "axios"
 export const GetOems = (model) => async (dispatch) => {
     try {
         dispatch({ type: LOADING })
-        let res = await axios.get(`${process.env.REACT_APP_BASEURL}/oem?model=${model}`)
-        dispatch({ type: GETOEMS, payload: res.data })
+        const params = {}
+        if (model) {
+            params.model = model
+        }
+        let res = await axios.get(`${process.env.REACT_APP_BASEURL}/oem`, { params })
+        dispatch({ type: GETOEMS, payload: res.data.oems })
     } catch (error) {
         dispatch({ type: ERROR, payload: error.response.data })
     }

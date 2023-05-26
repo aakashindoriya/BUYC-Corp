@@ -25,7 +25,7 @@ const CREATE_OLD_CAR = async (req, res) => {
 
         res.status(201).send({ message: ' Car created successfully', oldCar });
     } catch (error) {
-        res.status(500).send({ error: 'Failed to create  Car' });
+        res.status(500).send({ error: 'Failed to create  Car', message: error.message });
     }
 };
 
@@ -79,7 +79,7 @@ const GETALLCARS = async (req, res) => {
         if (sort && order) {
             if (sort === "mileage") {
                 Sort = { [`oemSpecs.${sort}`]: order == "desc" ? -1 : 1 }
-
+                console.log(order == "desc", Sort)
             } else {
                 Sort = { [sort]: order == "desc" ? -1 : 1 }
             }
@@ -94,6 +94,7 @@ const GETALLCARS = async (req, res) => {
         if (color) {
             Query.colors = { $in: [color] }
         }
+        console.log(order == "desc", Sort)
         const totalCount = await OldCar.countDocuments(Query);
         const oems = await OldCar.find(Query).populate('oemSpecs', { _id: 0 }).sort(Sort);
         res.status(200).send({ totalCount, oems });
@@ -102,5 +103,13 @@ const GETALLCARS = async (req, res) => {
     }
 };
 
+const GETCARBYID = async (req, res) => {
+    try {
+        let car = await OldCar.findOne({ _id: req.params.id })
+        res.status(200).send(car)
+    } catch (error) {
+        res.status(500).send({ error: 'Failed to fetch OEMs', message: error.message });
+    }
+}
 
-module.exports = { CREATE_OLD_CAR, DELETECARS, EDITCAR, GETALLCARS };
+module.exports = { CREATE_OLD_CAR, DELETECARS, EDITCAR, GETALLCARS, GETCARBYID };

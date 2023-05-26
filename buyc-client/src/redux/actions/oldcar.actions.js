@@ -12,12 +12,16 @@ export const AddCar = (data) => async (dispatch) => {
         dispatch({ type: ERROR, payload: error.response.data })
     }
 }
-export const EditCar = (data) => async (dispatch) => {
+export const EditSingleCar = (data) => async (dispatch) => {
     try {
         dispatch({ type: LOADING })
-        let res = await axios.patch(`${process.env.REACT_APP_BASEURL}/car/${data.carid}`, data, {
+        const { carid, kmsOnOdometer, majorScratches, description, originalPaint, previousBuyers, price, registrationPlace, title, accidentsReported } = data
+        let res = await axios.patch(`${process.env.REACT_APP_BASEURL}/car/${carid}`, {
+            kmsOnOdometer, majorScratches, description, originalPaint, previousBuyers, price, registrationPlace, title, accidentsReported
+        }, {
             headers: { Authorization: JSON.parse(localStorage.getItem("auth")).token }
         })
+        alert("updated sucessfully")
         dispatch({ type: EDITCAR, payload: res.data })
     } catch (error) {
         dispatch({ type: ERROR, payload: error.response.data })
@@ -63,7 +67,8 @@ export const GetAllCars = (queries) => async (dispatch) => {
         console.log(res)
         return dispatch({ type: GETCARS, payload: res.data.oems })
     } catch (error) {
-        dispatch({ type: ERROR, payload: error.response.data })
+        console.log(error)
+        // dispatch({ type: ERROR, payload: error.response.data })
     }
 }
 
