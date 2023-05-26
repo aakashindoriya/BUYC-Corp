@@ -6,7 +6,7 @@ const oemSchema = new mongoose.Schema(
         year: { type: Number, required: true },
         listPrice: { type: Number, required: true },
         colors: [{ type: String }],
-        mileage: { type: String },
+        mileage: { type: Number },
         power: { type: String },
         maxSpeed: { type: String },
         provider: { type: mongoose.Schema.Types.ObjectId, ref: 'BUser', required: true },

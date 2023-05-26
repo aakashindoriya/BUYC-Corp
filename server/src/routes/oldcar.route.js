@@ -1,10 +1,11 @@
 const express = require("express")
-const { CREATE_OLD_CAR, DELETECARS, EDITCAR } = require("../controllers/oldcar.controller")
+const { CREATE_OLD_CAR, DELETECARS, EDITCAR, GETALLCARS } = require("../controllers/oldcar.controller")
 const authMiddleware = require("../middlewares/auth")
-const { checkOem } = require("../middlewares/roleBaseAuth")
+const { checkSeller } = require("../middlewares/roleBaseAuth")
 const app = express.Router()
 
-app.post("/addcar", authMiddleware, checkOem, CREATE_OLD_CAR)
-app.delete("/:listings", DELETECARS)
-app.patch("/:carId", EDITCAR)
+app.post("/addcar", authMiddleware, checkSeller, CREATE_OLD_CAR)
+app.delete("/", authMiddleware, checkSeller, DELETECARS)
+app.patch("/:carId", authMiddleware, checkSeller, EDITCAR)
+app.get("/", GETALLCARS)
 module.exports = app
