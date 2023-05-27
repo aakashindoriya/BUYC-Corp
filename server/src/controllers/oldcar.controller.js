@@ -3,7 +3,7 @@ const OldCar = require('../models/oldcar.model');
 // Create Old Car
 const CREATE_OLD_CAR = async (req, res) => {
     try {
-        const { image, title, description, oemSpecs, colors, kmsOnOdometer, majorScratches, originalPaint, accidentsReported, previousBuyers, registrationPlace } = req.body;
+        const { image, title, description, oemSpecs, colors, kmsOnOdometer, majorScratches, originalPaint, accidentsReported, previousBuyers, registrationPlace, price } = req.body;
         const seller = req.user._id
 
         const oldCar = new OldCar({
@@ -19,6 +19,7 @@ const CREATE_OLD_CAR = async (req, res) => {
             accidentsReported,
             previousBuyers,
             registrationPlace,
+            price
         });
 
         await oldCar.save();
