@@ -59,7 +59,7 @@ const CreateCar = ({ oemSpecs }) => {
   };
 
   return (
-    <Box maxWidth="500px" margin="0 auto">
+    <Box maxW={"90%"} margin="0 auto">
       <Heading as="h1" size="lg" textAlign="center" mb={8}>
         Fill Car Details
       </Heading>

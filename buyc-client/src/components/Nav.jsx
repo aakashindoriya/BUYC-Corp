@@ -13,6 +13,7 @@ export default function Nav() {
       top="0%"
       bg="teal.100"
       w="100%"
+      h="80px"
       justifyContent={"space-between"}
       alignItems={"center"}
       zIndex={"2"}

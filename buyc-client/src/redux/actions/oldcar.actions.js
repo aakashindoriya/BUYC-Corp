@@ -6,7 +6,7 @@ export const AddCar = (data) => async (dispatch) => {
         let res = await axios.post(`${process.env.REACT_APP_BASEURL}/car/addcar`, data, {
             headers: { Authorization: JSON.parse(localStorage.getItem("auth")).token }
         })
-        console.log(res.data)
+        alert("Car added Successfully")
         dispatch({ type: ADDCAR, payload: res.data.oldCar })
     } catch (error) {
         dispatch({ type: ERROR, payload: error.response.data })
@@ -83,6 +83,7 @@ export const DeleteCars = (ids) => async (dispatch) => {
         await axios.delete(url, {
             headers: { Authorization: JSON.parse(localStorage.getItem("auth")).token }
         });
+        alert("Delete Successfully")
         dispatch({ type: DELETECARS, payload: ids })
     } catch (error) {
         console.log(error)

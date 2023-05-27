@@ -1,24 +1,37 @@
 import { Box, Button, Flex, FormLabel, Input, Select } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
 import { GetAllCars } from "../redux/actions/oldcar.actions";
-export default function Filters() {
+function Filters() {
   const dispatch = useDispatch();
   let init = {
     color: "",
-    lte: 0,
-    gte: 0,
-    sort: "price",
-    order: null,
+    price: "all",
+    mileage: "all",
   };
   let [query, setQuery] = useState(init);
-  useEffect(() => {}, []);
+  function handleChange(e) {
+    setQuery({ ...query, [e.target.name]: e.target.value });
+  }
+
   return (
-    <Flex>
+    <Flex
+      m="auto"
+      maxW="90%"
+      justifyContent={"space-around"}
+      pb="3%"
+      pos="sticky"
+      top="80px"
+      zIndex={3}
+      bg="white"
+    >
       <Box>
         <FormLabel htmlFor="price">Price</FormLabel>
         <Select
+          name="price"
+          value={query.price}
           onChange={(e) => {
+            handleChange(e);
             dispatch(GetAllCars({ sort: "price", order: e.target.value }));
           }}
         >
@@ -30,7 +43,10 @@ export default function Filters() {
       <Box>
         <FormLabel htmlFor="price">Mileage</FormLabel>
         <Select
+          name="mileage"
+          value={query.mileage}
           onChange={(e) => {
+            handleChange(e);
             dispatch(GetAllCars({ sort: "mileage", order: e.target.value }));
           }}
         >
@@ -43,10 +59,14 @@ export default function Filters() {
         <FormLabel htmlFor="price">Color</FormLabel>
         <Flex>
           <Input
+            name="color"
             value={query.color}
-            onChange={(e) => setQuery({ ...query, color: e.target.value })}
+            onChange={(e) => {
+              handleChange(e);
+              setQuery({ ...query, color: e.target.value });
+            }}
           />
-          <Button onClick={() => GetAllCars({ color: query.color })}>
+          <Button onClick={() => dispatch(GetAllCars({ color: query.color }))}>
             Apply
           </Button>
         </Flex>
@@ -54,3 +74,5 @@ export default function Filters() {
     </Flex>
   );
 }
+
+export default memo(Filters);

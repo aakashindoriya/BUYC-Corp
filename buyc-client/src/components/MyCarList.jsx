@@ -22,7 +22,14 @@ function DeleteChecbox({ que, setQue, id }) {
     }
     SetCheck(!check);
   }
-  return <Checkbox isChecked={check} onChange={HandleChange}></Checkbox>;
+  return (
+    <Checkbox
+      size="lg"
+      ceme="orange"
+      isChecked={check}
+      onChange={HandleChange}
+    ></Checkbox>
+  );
 }
 
 export default function MyCarList() {
@@ -32,15 +39,29 @@ export default function MyCarList() {
   const dispatch = useDispatch();
   const [Delete, SetDelete] = useState([]);
   return (
-    <Box>
-      <Flex>
+    <Box w="95%" m="auto">
+      <Flex
+        w="40%"
+        m="auto"
+        justifyContent={"space-around"}
+        pos="sticky"
+        top="80px"
+        gap="2"
+        zIndex={3}
+      >
         <Button
+          bg="white"
+          variant={"outline"}
+          w="100%"
           isDisabled={Delete.length > 1 || Delete.length == 0 ? true : false}
           onClick={() => navigate(`/edit/${Delete[0]}`)}
         >
           Edit
         </Button>
         <Button
+          bg="white"
+          variant={"outline"}
+          w="100%"
           isDisabled={Delete.length == 0 ? true : false}
           onClick={() => dispatch(DeleteCars(Delete))}
         >
@@ -54,8 +75,9 @@ export default function MyCarList() {
           alignItems={"center"}
           justifyContent={"space-around"}
           boxShadow={"md"}
+          flexDirection={["column", "row"]}
         >
-          <Box>
+          <Box w={["100", "25%"]} overflow={"hidden"}>
             <Image
               m="auto"
               maxW={"150px"}
@@ -65,17 +87,17 @@ export default function MyCarList() {
             />
           </Box>
 
-          <Box>
+          <Box w={["100", "25%"]} overflow={"hidden"}>
             <Text fontSize={"20"}>{el.title}</Text>
           </Box>
-          <Box>
+          <Box w={["100", "25%"]} overflowY={"scroll"}>
             <Text>{el.description}</Text>
           </Box>
-          {auth.id == el.seller && (
-            <Box>
+          <Box w={["100", "25%"]} overflow={"hidden"}>
+            {auth.id == el.seller && (
               <DeleteChecbox que={Delete} setQue={SetDelete} id={el._id} />
-            </Box>
-          )}
+            )}
+          </Box>
         </Flex>
       ))}
     </Box>

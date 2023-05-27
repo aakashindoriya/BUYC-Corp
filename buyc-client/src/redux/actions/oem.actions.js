@@ -21,6 +21,7 @@ export const AddOems = (data) => async (dispatch) => {
         let res = await axios.post(`${process.env.REACT_APP_BASEURL}/oem/addoem`, data, {
             headers: { Authorization: JSON.parse(localStorage.getItem("auth")).token }
         })
+        alert("OEM added Successfully")
         dispatch({ type: ADDOEM, payload: res.data.oem })
     } catch (error) {
         dispatch({ type: ERROR, payload: error.response.data })

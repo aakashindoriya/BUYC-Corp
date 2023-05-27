@@ -23,59 +23,69 @@ const OEMList = ({ setoem }) => {
   };
 
   return (
-    <Box p={4}>
-      <Input
-        type="text"
-        placeholder="Find OEM"
-        value={text}
-        onChange={handleSearch}
-        mb={4}
-      />
-      <Stack spacing={4}>
-        {Oem.loading ? (
-          <Stack spacing={4}>
-            {Array.from({ length: 5 }).map((_, index) => (
-              <Skeleton key={index} height="40px" />
-            ))}
-          </Stack>
-        ) : (
-          Oem.oems?.map((oem) => (
-            <Box
-              key={oem._id}
-              p={4}
-              boxShadow="md"
-              borderRadius="md"
-              _hover={{ cursor: "pointer" }}
-              onClick={() => setoem(oem._id)}
-            >
-              <Text fontWeight="bold" fontSize="lg" mb={2}>
-                {oem.model}
-              </Text>
-              <Flex mb={2}>
-                {oem.colors.map((color) => (
-                  <Badge
-                    key={color}
-                    colorScheme={color}
-                    variant="solid"
-                    mr={2}
-                    borderRadius="md"
-                  >
-                    {color}
-                  </Badge>
-                ))}
-              </Flex>
-              <Grid templateColumns="repeat(2, 1fr)" gap={2}>
-                <GridItem>
-                  <Text>List Price: {oem.listPrice}</Text>
-                </GridItem>
-                <GridItem>
-                  <Text>Mileage: {oem.mileage}</Text>
-                </GridItem>
-              </Grid>
-            </Box>
-          ))
-        )}
-      </Stack>
+    <Box textAlign={"center"} padding={10}>
+      <Text fontSize={40} fontWeight={"bold"}>
+        Select A Car You Want To Sell
+      </Text>
+      <Box p={4}>
+        <Input
+          maxW="50%"
+          position={"sticky"}
+          top="80px"
+          zIndex={3}
+          bg={"white"}
+          type="text"
+          placeholder="Find OEM"
+          value={text}
+          onChange={handleSearch}
+          mb={4}
+        />
+        <Stack spacing={4}>
+          {Oem.loading ? (
+            <Stack spacing={4}>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Skeleton key={index} height="40px" />
+              ))}
+            </Stack>
+          ) : (
+            Oem.oems?.map((oem) => (
+              <Box
+                key={oem._id}
+                p={4}
+                boxShadow="md"
+                borderRadius="md"
+                _hover={{ cursor: "pointer" }}
+                onClick={() => setoem(oem._id)}
+              >
+                <Text fontWeight="bold" fontSize="lg" mb={2}>
+                  {oem.model}
+                </Text>
+                <Flex mb={2}>
+                  {oem.colors.map((color) => (
+                    <Badge
+                      key={color}
+                      colorScheme={color}
+                      variant="solid"
+                      mr={2}
+                      borderRadius="md"
+                    >
+                      {color}
+                    </Badge>
+                  ))}
+                </Flex>
+                <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+                  <GridItem>
+                    <Text>List Price: {oem.listPrice}</Text>
+                  </GridItem>
+                  <GridItem>
+                    <Text>Mileage: {oem.mileage}</Text>
+                  </GridItem>
+                </Grid>
+              </Box>
+            ))
+          )}
+        </Stack>
+      </Box>
     </Box>
   );
 };
