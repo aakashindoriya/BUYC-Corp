@@ -40,48 +40,35 @@ To start using BUYC, follow these steps:
    git clone <repository_url>
 Move into the server folder:
 
-shell
-Copy code
+
 cd BUYC/server
 Install the server dependencies:
 
-shell
-Copy code
 npm install
 Create a .env file in the server directory and add the following keys:
 
-plaintext
-Copy code
 MONGOURL=<MongoDB_connection_URL>
 JWT_SECRET=<your_JWT_secret>
 Replace <MongoDB_connection_URL> with the URL to your MongoDB instance and <your_JWT_secret> with a secret key for JSON Web Tokens.
 
 Move into the client folder:
 
-shell
-Copy code
+
 cd ../buyc-client
 Install the client dependencies:
 
-shell
-Copy code
+
 npm install
 Create a .env file in the buyc-client directory and add the following line:
 
-plaintext
-Copy code
 REACT_APP_BASEURL="http://localhost:8080"
 Start the server:
 
-shell
-Copy code
 npm start
 The server will now be running on http://localhost:8080.
 
 Start the React app:
 
-shell
-Copy code
 npm start
 The React app will be accessible at http://localhost:3000.
 
