@@ -21,6 +21,9 @@ BUYC is a platform designed for buying and selling old cars. It provides a conve
 - The "My Cars" section displays a list of all available cars, but users can only edit and delete cars they created.
 - Every user can visit the home page by clicking the BUYC logo and see the available cars.
 
+![image](https://github.com/aakashindoriya/BUYC-Corp/assets/37771235/ae440d5b-9ce0-410c-860d-b6162e65113f)
+
+
 ## Prerequisites
 
 Before getting started, make sure you have the following installed on your machine:
